@@ -97,6 +97,7 @@ main{overflow-x:clip}
 .strip .row{display:flex;gap:14px;width:max-content;animation:slide 50s linear infinite}
 .strip:hover .row{animation-play-state:paused}
 .strip .f{width:240px;aspect-ratio:16/9;border-radius:10px;overflow:hidden;flex:none;border:1px solid var(--line)}
+.strip .f img{width:100%;height:100%;object-fit:cover;object-position:50% 25%;display:block}
 @keyframes slide{to{transform:translateX(-50%)}}
 
 /* sections */
@@ -221,6 +222,59 @@ p.lead + p.lead{margin-top:12px}
 .stack span{font-size:.82rem;color:var(--mute);border:1px solid var(--line);border-radius:99px;padding:5px 12px;background:var(--bg);transition:all .25s}
 .stack span:hover{color:#fff;background:var(--c4);border-color:var(--c4)}
 
+/* campaigns */
+.celebs{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:40px}
+.celeb{position:relative;aspect-ratio:3/4;border-radius:16px;overflow:hidden;display:block;text-decoration:none;color:#fff;transform:perspective(800px) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg));transition:transform .25s,box-shadow .4s}
+.celeb:hover{box-shadow:0 26px 50px -22px rgba(60,20,40,.55)}
+.celeb img{width:100%;height:100%;object-fit:cover;object-position:50% 20%;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.celeb:hover img{transform:scale(1.07)}
+.celeb .ov{position:absolute;inset:auto 0 0 0;padding:44px 16px 16px;background:linear-gradient(transparent,rgba(20,10,15,.82))}
+.celeb .ov span{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;opacity:.8}
+.celeb h4{font-family:Newsreader,serif;font-weight:400;font-size:1.35rem;line-height:1.1}
+.celeb em{font-style:normal;font-size:.78rem;opacity:0;transform:translateY(6px);display:inline-block;transition:all .3s;color:#ffd1e1}
+.celeb:hover em{opacity:1;transform:none}
+.celeb.in:nth-child(odd){animation:drift 7s ease-in-out infinite}.celeb.in:nth-child(even){animation:drift 7s ease-in-out -3.5s infinite}
+@keyframes drift{50%{translate:0 -6px}}
+.roles{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.roles span,.skills span{font-size:.84rem;border-radius:99px;padding:6px 14px;color:var(--cc);background:color-mix(in srgb,var(--cc) 12%,transparent);font-weight:500}
+@media(max-width:900px){.celebs{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.celebs{grid-template-columns:repeat(2,1fr)}.celeb h4{font-size:1.1rem}}
+.collab{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:center;margin-top:64px;background:var(--t5);border-radius:24px;padding:36px;position:relative;overflow:hidden}
+.collab .ci{border-radius:16px;overflow:hidden;aspect-ratio:4/5;transform:rotate(-2deg);box-shadow:0 26px 50px -24px rgba(120,20,70,.5);transition:transform .5s}
+.collab:hover .ci{transform:rotate(0) scale(1.02)}
+.collab .ci img{width:100%;height:100%;object-fit:cover}
+.collab h3{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;line-height:1.15}
+.tagline{font-family:Newsreader,serif;font-style:italic;color:var(--c5);font-size:1.25rem;margin:6px 0 16px}
+.ticks{list-style:none;margin-bottom:24px}
+.ticks li{padding:7px 0 7px 30px;position:relative;color:var(--mute)}
+.ticks li::before{content:"✓";position:absolute;left:0;top:9px;width:20px;height:20px;border-radius:50%;background:var(--c5);color:#fff;font-size:.7rem;display:grid;place-items:center}
+@media(max-width:760px){.collab{grid-template-columns:1fr;padding:22px}.collab .ci{aspect-ratio:4/3;transform:none}}
+.bento{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px;margin-top:20px}
+.bx2{background:var(--tc);border-radius:20px;padding:24px;display:flex;flex-direction:column;transition:transform .3s}
+.bx2:hover{transform:translateY(-4px)}
+.bx2 .k{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--cc)}
+.bx2 h3{font-size:1.5rem;font-weight:400;margin:6px 0 8px}
+.bx2 p{color:var(--mute);font-size:.92rem}
+.bx2 > img,.bx2 .feat-img{width:100%;border-radius:12px;margin-top:16px;object-fit:cover;aspect-ratio:4/3;object-position:50% 30%}
+.links2{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.links2 a{font-size:.84rem;text-decoration:none;padding:6px 12px;border-radius:99px;background:var(--bg);color:var(--ink);transition:all .2s}
+.links2 a:hover{background:var(--cc);color:#fff}
+.pair{display:grid;gap:12px;margin-top:8px}
+.pair a{display:grid;grid-template-columns:76px 1fr;gap:12px;align-items:center;text-decoration:none;background:var(--bg);border-radius:12px;padding:8px;transition:transform .2s}
+.pair a:hover{transform:translateX(4px)}
+.pair img{width:76px;height:76px;object-fit:cover;border-radius:8px}
+.pair span{font-size:.86rem}
+@media(max-width:860px){.bento{grid-template-columns:1fr}}
+/* about */
+.about{display:grid;grid-template-columns:300px 1fr;gap:56px;align-items:center}
+.photo{position:relative;aspect-ratio:3/4;max-width:300px}
+.photo img{width:100%;height:100%;object-fit:cover;border-radius:24px;position:relative;z-index:1}
+.photo .ring{position:absolute;inset:-14px 14px 14px -14px;border-radius:24px;background:conic-gradient(from var(--a,0deg),var(--c1),var(--c3),var(--c2),var(--c4),var(--c5),var(--c1));animation:spin 8s linear infinite;opacity:.85}
+@property --a{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes spin{to{--a:360deg}}
+.skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+@media(max-width:760px){.about{grid-template-columns:1fr;gap:36px}.photo{max-width:240px;margin-left:14px}}
+
 /* contact */
 .contact{text-align:center}
 .contact h2{margin:0 auto 14px}
@@ -238,7 +292,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 <nav id="nav"><div class="wrap">
   <a class="name" href="#top"><span class="logo"><i></i><i></i><i></i></span>Aroma Tahir</a>
   <div class="links">
-    <a class="h" href="#work">Work</a><a class="h" href="#gallery">Videos</a><a class="h" href="#decisions">Decisions</a><a href="#contact">Contact</a>
+    <a class="h" href="#work">AI system</a><a class="h" href="#campaigns">Campaigns</a><a class="h" href="#about">About</a><a href="#contact">Contact</a>
     <button class="theme" id="theme" aria-label="Toggle theme">◐</button>
   </div>
 </div></nav>
@@ -247,12 +301,12 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 <header class="wrap hero">
   <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
   <div>
-    <div class="pill reveal"><b>Live</b>AI systems for learning content</div>
-    <h1 class="reveal">I built a system that turns one line of text into a <span class="rot" id="rot"><span>narrated</span></span> lesson video.</h1>
-    <p class="reveal">Content Queen researches the topic, writes the script, reviews its own work, illustrates, narrates, renders and QA-checks it, then publishes it with a quiz built in. <b>About 50 minutes and under a dollar per video.</b></p>
+    <div class="pill reveal"><b>Hi</b>Marketing · PR · AI content systems</div>
+    <h1 class="reveal">I make content people <span class="rot" id="rot"><span>remember</span></span>, and I build the systems that make it.</h1>
+    <p class="reveal">I'm a marketer and PR professional. I've run celebrity campaigns, magazine features and brand collaborations, and I built <b>Content Queen</b>, an AI system that turns one line of text into a narrated lesson video <b>in about 50 minutes, for under a dollar.</b></p>
     <div class="cta reveal">
-      <a class="btn p" href="#work">Read the case study →</a>
-      <a class="btn" href="#gallery">Watch the videos</a>
+      <a class="btn p" href="#work">See the AI system →</a>
+      <a class="btn" href="#campaigns">See the campaigns</a>
     </div>
   </div>
   <div class="hero-media reveal">
@@ -274,7 +328,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 <!-- CASE STUDY -->
 <section id="work" class="wrap">
   <div class="narrow" style="margin:0">
-    <div class="label reveal" style="--lc:var(--c1)">Case study · Content Queen · 2026</div>
+    <div class="label reveal" style="--lc:var(--c1)">Featured · Content Queen · AI system · 2026</div>
     <h2 class="reveal">The problem: good lessons were <em>slow and expensive</em> to make</h2>
     <p class="lead reveal">A good explainer video takes a team days: research, scripting, illustration, voiceover, editing, review. For a fast-moving AI curriculum that was too slow and too expensive, and quality varied from video to video.</p>
     <p class="lead reveal">I set out to build a pipeline that makes videos to a consistent standard from a single request, and that refuses to call a bad video finished.</p>
@@ -397,11 +451,91 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <div class="stack reveal"><span>Claude</span><span>Claude Code skills</span><span>Node.js</span><span>Python</span><span>Gemini TTS</span><span>Imagen</span><span>Puppeteer</span><span>ffmpeg</span><span>Railway</span><span>Slack API</span><span>Notion API</span><span>Google Drive API</span><span>YouTube API</span><span>LLM-as-judge evals</span></div>
 </section>
 
+<!-- MARKETING & PR -->
+<section id="campaigns" class="wrap">
+  <div class="label reveal" style="--lc:var(--c5)">Marketing &amp; PR · Lulusar</div>
+  <h2 class="reveal" style="--lc:var(--c5)">Celebrity campaigns, <em>start to finish</em></h2>
+  <p class="lead reveal">For each campaign I managed the talent, ran line production on the shoot, and coordinated post-production through to the published campaign. Tap a card to see it live.</p>
+  <div class="celebs">
+    <a class="celeb reveal" href="https://www.instagram.com/reel/Ce5u354D2oW/" target="_blank" rel="noopener"><img src="work/hania.jpg" alt="Hania Aamir in a red embroidered Lulusar outfit" loading="lazy"><div class="ov"><span>Lulusar ×</span><h4>Hania Aamir</h4><em>View campaign ↗</em></div></a>
+    <a class="celeb reveal" href="https://www.instagram.com/reel/Cho1d4llqKO/" target="_blank" rel="noopener"><img src="work/dure.jpg" alt="Dure Fishan in a patterned Lulusar jacket" loading="lazy"><div class="ov"><span>Lulusar ×</span><h4>Dure Fishan</h4><em>View campaign ↗</em></div></a>
+    <a class="celeb reveal" href="https://www.instagram.com/p/ClYZxSLjG1C/" target="_blank" rel="noopener"><img src="work/ushna.jpg" alt="Ushna Shah in a printed Lulusar dress" loading="lazy"><div class="ov"><span>Lulusar ×</span><h4>Ushna Shah</h4><em>View campaign ↗</em></div></a>
+    <a class="celeb reveal" href="https://www.instagram.com/p/CmgadP-jFsn/" target="_blank" rel="noopener"><img src="work/ramsha.jpg" alt="Ramsha Khan walking in a Lulusar jacket" loading="lazy"><div class="ov"><span>Lulusar ×</span><h4>Ramsha Khan</h4><em>View campaign ↗</em></div></a>
+    <a class="celeb reveal" href="https://www.instagram.com/p/CpCn3Cujkei/" target="_blank" rel="noopener"><img src="work/anoushey.jpg" alt="Anoushey Ashraf in a checked Lulusar outfit" loading="lazy"><div class="ov"><span>Lulusar ×</span><h4>Anoushey Ashraf</h4><em>View campaign ↗</em></div></a>
+  </div>
+  <div class="roles reveal"><span style="--cc:var(--c5)">Celebrity management</span><span style="--cc:var(--c1)">Line production</span><span style="--cc:var(--c4)">Post-production coordination</span></div>
+
+  <!-- collab -->
+  <div class="collab reveal">
+    <div class="ci"><img src="work/malamjabba.jpg" alt="Three skiers in pink jackets, Breaking the Norms campaign" loading="lazy"></div>
+    <div class="ct2">
+      <div class="label" style="--lc:var(--c4)">Brand collaboration</div>
+      <h3 class="serif">Lulusar × Malam Jabba Ski Resort</h3>
+      <p class="tagline">"Breaking the Norms"</p>
+      <ul class="ticks">
+        <li>Sponsorship proposal: sought the sponsor and finalized the deal</li>
+        <li>Developed the campaign concept</li>
+        <li>Coordinated end to end, from pitch to publish</li>
+        <li>Line production</li>
+      </ul>
+      <a class="btn p" href="https://www.instagram.com/reel/CphNMr7j-B1/" target="_blank" rel="noopener">Watch the campaign ↗</a>
+    </div>
+  </div>
+
+  <!-- publications / writing / features -->
+  <div class="bento">
+    <div class="bx2 pub reveal" style="--tc:var(--t4);--cc:var(--c4)">
+      <div class="k">Publications</div>
+      <h3 class="serif">Magazine features</h3>
+      <p>Lulusar features in fashion and lifestyle magazines, including the <em>#pledgetoloveyourself</em> campaign.</p>
+      <div class="links2">
+        <a href="https://www.instagram.com/reel/Cjufxm9oH8C/" target="_blank" rel="noopener">Mashion ↗</a>
+        <a href="https://www.instagram.com/reel/CkQr7cHIK2c/" target="_blank" rel="noopener">Diva ↗</a>
+        <a href="https://www.instagram.com/p/CnfAOJJIq3P/" target="_blank" rel="noopener">Hello ↗</a>
+      </div>
+      <img src="work/forall.jpg" alt="Lulusar for all, a group of diverse women, #pledgetoloveyourself" loading="lazy">
+    </div>
+    <div class="bx2 reveal" style="--tc:var(--t3);--cc:#b07d10">
+      <div class="k">Content writing</div>
+      <h3 class="serif">Scripts &amp; copy</h3>
+      <div class="pair">
+        <a href="https://www.facebook.com/watch/?v=554169843575474" target="_blank" rel="noopener"><img src="work/ubank.jpg" alt="World Environment Day graphic for Ubank" loading="lazy"><span>Ubank · World Environment Day ↗</span></a>
+        <a href="https://www.instagram.com/p/CjqWfF8osym/" target="_blank" rel="noopener"><img src="work/hello-lulusar.jpg" alt="Lulusar Transforming Landscapes into Dreamscapes feature in Hello" loading="lazy"><span>Hello × Lulusar · Dreamscapes '22 ↗</span></a>
+      </div>
+    </div>
+    <div class="bx2 reveal" style="--tc:var(--t2);--cc:var(--c2)">
+      <div class="k">Content features</div>
+      <h3 class="serif">Lulusar reels</h3>
+      <img class="feat-img" src="work/features.jpg" alt="Two women laughing in Lulusar outfits" loading="lazy">
+      <div class="links2">
+        <a href="https://www.instagram.com/reel/CoUQ4SVr0uk/" target="_blank" rel="noopener">Feature 1 ↗</a>
+        <a href="https://www.instagram.com/reel/Cgoy_2pj96E/" target="_blank" rel="noopener">Feature 2 ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="wrap">
+  <div class="about">
+    <div class="photo reveal"><img src="work/aroma.jpg" alt="Portrait of Aroma Tahir"><div class="ring"></div></div>
+    <div>
+      <div class="label reveal" style="--lc:var(--c1)">About</div>
+      <h2 class="reveal" style="--lc:var(--c1)">From <em>brand stories</em> to the systems behind them</h2>
+      <p class="lead reveal">I'm a marketer and PR professional with a passion for impactful campaigns and strong brand reputations. I use digital platforms and social media to grow a brand's presence and visibility, and I've handled client servicing for both national and international clients.</p>
+      <p class="lead reveal">Content Queen grew out of the same instinct: good content should be repeatable, consistent and measurable. So I built a system that makes it that way.</p>
+      <div class="skills reveal">
+        <span style="--cc:var(--c1)">Content creation</span><span style="--cc:var(--c5)">Digital marketing</span><span style="--cc:var(--c2)">Client services</span><span style="--cc:#b07d10">Writing &amp; editing</span><span style="--cc:var(--c4)">Celebrity &amp; talent management</span><span style="--cc:var(--c1)">Line production</span><span style="--cc:var(--c2)">AI agents &amp; automation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact" class="wrap contact">
   <div class="label reveal" style="--lc:var(--c5)">Contact</div>
-  <h2 class="reveal" style="--lc:var(--c1)">I build AI systems that <em>ship</em>, and I don't call them done until I've checked the output.</h2>
-  <p class="lead reveal">I'm open to work spanning agent design, content pipelines, and AI products where quality has to be proven, not assumed.</p>
+  <h2 class="reveal" style="--lc:var(--c1)">Campaigns people <em>remember</em>. Systems that <em>ship</em>.</h2>
+  <p class="lead reveal">I'm open to work across brand, PR and content, and to AI products where content quality has to be proven, not assumed.</p>
   <div class="cta reveal"><a class="btn p" href="https://github.com/aroma72">GitHub →</a></div>
 </section>
 </main>
@@ -423,15 +557,15 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return
 document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3)*80+'ms';io.observe(el)});
 function count(el){if(reduce)return;const to=+el.dataset.to,dec=+(el.dataset.dec||0),from=to===0?43:0,t0=performance.now();(function f(t){const p=Math.min(1,(t-t0)/1400),e=1-Math.pow(1-p,3);el.textContent=(from+(to-from)*e).toFixed(dec);if(p<1)requestAnimationFrame(f)})(t0)}
 /* rotating word */
-const words=['narrated','illustrated','quiz-gated','QA-checked','published'],cols=['var(--c1)','var(--c2)','#b07d10','var(--c4)','var(--c5)'];let wi=0;
+const words=['remember','share','stop for','learn from','talk about'],cols=['var(--c1)','var(--c2)','#b07d10','var(--c4)','var(--c5)'];let wi=0;
 if(!reduce)setInterval(()=>{wi=(wi+1)%words.length;$('rot').innerHTML=`<span>${words[wi]}</span>`;$('rot').style.color=cols[wi]},2200);
 /* hero reel */
 const rv=[...$('reel').querySelectorAll('video')],rd=[...$('reel').querySelectorAll('.dots i')];let ri=0;
 function playReel(i){rv.forEach((v,j)=>{v.classList.toggle('on',j===i);if(j===i){v.preload='auto';v.currentTime=0;v.play().catch(()=>{})}else v.pause()});rd.forEach((d,j)=>{d.classList.remove('on');if(j===i){void d.offsetWidth;d.classList.add('on')}})}
 playReel(0);if(!reduce)setInterval(()=>{ri=(ri+1)%rv.length;playReel(ri)},4000);
 /* filmstrip */
-const clips=['blank','zero14','swirl','refund','grid','cards','bars'];
-$('strip').innerHTML=[...clips,...clips].map(c=>`<div class="f"><video muted loop playsinline autoplay preload="none" poster="media/${c}.jpg" src="media/${c}.mp4"></video></div>`).join('');
+const mix=[['v','blank'],['i','hania'],['v','swirl'],['i','malamjabba'],['v','refund'],['i','dure'],['v','grid'],['i','forall'],['v','cards'],['i','anoushey'],['v','zero14'],['i','ramsha'],['v','bars'],['i','ushna']];
+$('strip').innerHTML=[...mix,...mix].map(([t,c])=>t==='v'?`<div class="f"><video muted loop playsinline autoplay preload="none" poster="media/${c}.jpg" src="media/${c}.mp4"></video></div>`:`<div class="f"><img src="work/${c}.jpg" alt="" loading="lazy"></div>`).join('');
 /* lazy autoplay gallery videos when visible */
 const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(!v.src&&v.dataset.src)v.src=v.dataset.src;if(!reduce)v.play().catch(()=>{})}else v.pause()}),{threshold:.25});
 document.querySelectorAll('.gal video,.strip video').forEach(v=>vio.observe(v));
@@ -452,6 +586,8 @@ pv.addEventListener('ended',()=>pp.textContent='↺');
 const FB={a:'Not quite. The model was fine. Nothing checked its answer, so a blank looked like good news.',b:'Right. A cheap rule catches the blank and sends it back, so the system fixes itself. Resuming…',c:'That is exactly the trap. Zero looked like good news, but there were 14 unpaid orders.'};
 quiz.querySelectorAll('.opt').forEach(o=>o.onclick=()=>{const k=o.dataset.k;fb.textContent=FB[k];o.classList.remove('bad');void o.offsetWidth;o.classList.add(k==='b'?'good':'bad');
   if(k==='b'){answered=true;setTimeout(()=>{quiz.classList.remove('show');quiz.querySelectorAll('.opt').forEach(x=>x.className='opt');fb.textContent='';pv.play();pp.textContent='❚❚'},1600)}});
+/* tilt celeb cards */
+if(!reduce)document.querySelectorAll('.celeb').forEach(c=>{c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.setProperty('--ry',x*10+'deg');c.style.setProperty('--rx',-y*10+'deg')});c.addEventListener('pointerleave',()=>{c.style.setProperty('--ry','0deg');c.style.setProperty('--rx','0deg')})});
 })();
 </script>
 </body>
