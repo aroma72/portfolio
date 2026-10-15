@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aroma Tahir · Content Queen</title>
+<meta name="description" content="Aroma Tahir built Content Queen, an autonomous system that turns a one-line topic into a narrated, quiz-gated lesson video for under a dollar.">
+<meta property="og:title" content="Aroma Tahir · Content Queen">
+<meta property="og:description" content="Topic in. Researched, scripted, illustrated, narrated, QA-gated lesson video out, for about $0.68.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0a10; --bg2:#13111b; --card:#17141f; --line:#2a2536;
+  --ink:#f3eff8; --mute:#a59fb4; --dim:#6f6880;
+  --gold:#f5c451; --pink:#ff5fa2; --teal:#3ee6c4; --violet:#9b7bff;
+  --grad:linear-gradient(100deg,var(--gold),var(--pink) 50%,var(--violet));
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:"Space Grotesk",system-ui,sans-serif;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.mono{font-family:"JetBrains Mono",monospace}
+.serif{font-family:"Instrument Serif",serif;font-weight:400}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+@media(max-width:600px){.wrap{padding:0 16px}}
+
+/* ambient */
+#glow{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(600px circle at var(--mx,50%) var(--my,30%),rgba(255,95,162,.10),transparent 60%)}
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+main,nav,footer{position:relative;z-index:1}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:2;opacity:.05;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+
+/* nav */
+nav{position:sticky;top:0;backdrop-filter:blur(14px);background:rgba(11,10,16,.65);border-bottom:1px solid var(--line);z-index:10}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-weight:700;letter-spacing:.02em;display:flex;gap:10px;align-items:center}
+.crown{width:26px;height:26px}
+nav ul{display:flex;gap:26px;list-style:none;font-size:.92rem;color:var(--mute)}
+nav a{text-decoration:none;transition:color .2s}
+nav a:hover{color:var(--ink)}
+@media(max-width:760px){nav ul{display:none}}
+
+/* hero */
+.hero{min-height:calc(100vh - 60px);display:flex;flex-direction:column;justify-content:center;padding:80px 0 60px}
+.kicker{display:inline-flex;gap:10px;align-items:center;font-size:.8rem;color:var(--mute);border:1px solid var(--line);padding:6px 14px;border-radius:99px;width:max-content;max-width:100%}
+.pulse{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 rgba(62,230,196,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(62,230,196,0)}100%{box-shadow:0 0 0 0 rgba(62,230,196,0)}}
+h1{font-size:clamp(2.6rem,7.5vw,6.2rem);line-height:.98;letter-spacing:-.035em;margin:28px 0 22px;font-weight:700}
+h1 .serif{font-style:italic;letter-spacing:-.01em}
+.gradtext{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:200% 0}}
+.lede{font-size:clamp(1.05rem,1.8vw,1.3rem);color:var(--mute);max-width:720px}
+.lede b{color:var(--ink);font-weight:500}
+.typer{margin-top:34px;font-size:clamp(.85rem,1.4vw,1rem);color:var(--teal);min-height:1.6em}
+.typer .cur{display:inline-block;width:9px;height:1.1em;background:var(--teal);vertical-align:-3px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.ctas{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;text-decoration:none;font-weight:500;transition:transform .2s,box-shadow .2s;border:1px solid var(--line);background:var(--card)}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.primary:hover{box-shadow:0 10px 40px -10px rgba(255,95,162,.6)}
+
+/* sections */
+section.wrap{padding-top:110px;padding-bottom:110px}
+.eyebrow{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);margin-bottom:14px}
+h2{font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.05;letter-spacing:-.03em;font-weight:700;max-width:860px}
+h2 .serif{font-style:italic}
+.sub{color:var(--mute);max-width:680px;margin-top:16px;font-size:1.08rem}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:56px}
+.stat{background:var(--bg2);padding:30px 26px;transition:background .3s}
+.stat:hover{background:var(--card)}
+.stat .n{font-size:clamp(2rem,4vw,3rem);font-weight:700;letter-spacing:-.03em}
+.stat .l{color:var(--mute);font-size:.92rem;margin-top:4px}
+@media(max-width:860px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* pipeline */
+.pipe{margin-top:56px;position:relative}
+.track{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;position:relative}
+.track::before{content:"";position:absolute;left:4%;right:4%;top:34px;height:2px;background:var(--line)}
+.runner{position:absolute;top:29px;left:4%;width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 18px 4px rgba(245,196,81,.6);transition:left .6s cubic-bezier(.6,0,.3,1)}
+.node{position:relative;text-align:center;cursor:pointer;background:none;border:0;color:inherit;font:inherit;padding:0}
+.node .dot{width:68px;height:68px;margin:0 auto;border-radius:18px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;font-size:1.6rem;transition:all .35s}
+.node .nm{margin-top:12px;font-weight:500;font-size:.95rem}
+.node .tg{font-size:.72rem;color:var(--dim)}
+.node.on .dot{border-color:var(--gold);box-shadow:0 0 0 4px rgba(245,196,81,.12),0 10px 30px -8px rgba(245,196,81,.5);transform:translateY(-4px)}
+.node.done .dot{border-color:var(--teal)}
+.detail{margin-top:34px;display:grid;grid-template-columns:1.1fr 1fr;gap:20px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px}
+.panel h3{font-size:1.4rem;letter-spacing:-.02em}
+.panel p{color:var(--mute);margin-top:10px}
+.chip{display:inline-block;font-size:.75rem;padding:4px 10px;border-radius:99px;border:1px solid var(--line);color:var(--mute);margin:12px 6px 0 0}
+.term{background:#07060b;border:1px solid var(--line);border-radius:18px;padding:18px 20px;font-size:.78rem;height:260px;overflow:hidden;position:relative}
+.term .bar{display:flex;gap:6px;margin-bottom:12px}
+.term .bar i{width:10px;height:10px;border-radius:50%;background:#333;display:block}
+.term .bar i:nth-child(1){background:#ff5f57}.term .bar i:nth-child(2){background:#febc2e}.term .bar i:nth-child(3){background:#28c840}
+#log div{white-space:pre-wrap;color:#cfc8dc;animation:fadein .3s}
+#log .ok{color:var(--teal)}#log .warn{color:var(--gold)}#log .err{color:var(--pink)}#log .d{color:var(--dim)}
+@keyframes fadein{from{opacity:0;transform:translateY(4px)}}
+@media(max-width:860px){
+  .track{grid-template-columns:repeat(4,1fr);row-gap:28px}
+  .track::before,.runner{display:none}
+  .detail{grid-template-columns:1fr}
+}
+
+/* quiz demo */
+.demo{margin-top:56px;display:grid;grid-template-columns:1.35fr 1fr;gap:28px;align-items:center}
+.player{aspect-ratio:16/9;border-radius:20px;overflow:hidden;position:relative;background:#f4ead6;border:1px solid var(--line);box-shadow:0 40px 80px -30px rgba(0,0,0,.7)}
+.scene{position:absolute;inset:0}
+.scene svg{width:100%;height:100%}
+.caption{position:absolute;left:0;right:0;bottom:46px;text-align:center;color:#2a2233;font-size:clamp(.75rem,1.6vw,1rem);padding:0 30px;font-weight:500;transition:opacity .4s}
+.ctrl{position:absolute;left:0;right:0;bottom:0;height:40px;background:linear-gradient(transparent,rgba(0,0,0,.45));display:flex;align-items:center;gap:12px;padding:0 14px}
+.pp{width:26px;height:26px;border-radius:50%;border:0;background:#fff;cursor:pointer;display:grid;place-items:center;font-size:.7rem;color:#111}
+.prog{flex:1;height:4px;background:rgba(255,255,255,.35);border-radius:4px;position:relative}
+.prog .fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--pink);border-radius:4px}
+.prog .cp{position:absolute;top:-3px;width:10px;height:10px;border-radius:50%;background:var(--gold);left:58%;box-shadow:0 0 8px var(--gold)}
+.tm{font-size:.7rem;color:#fff}
+.quiz{position:absolute;inset:0;background:rgba(15,12,22,.86);backdrop-filter:blur(6px);display:flex;flex-direction:column;justify-content:center;padding:6%;opacity:0;pointer-events:none;transition:opacity .4s}
+.quiz.show{opacity:1;pointer-events:auto}
+.quiz .q{font-size:clamp(.85rem,1.9vw,1.2rem);font-weight:500;margin-bottom:14px}
+.quiz .lock{font-size:.68rem;color:var(--gold);margin-bottom:8px;letter-spacing:.1em;text-transform:uppercase}
+.opt{display:block;width:100%;text-align:left;font:inherit;font-size:clamp(.72rem,1.5vw,.92rem);color:var(--ink);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:9px 13px;margin-bottom:7px;cursor:pointer;transition:all .2s}
+.opt:hover{background:rgba(255,255,255,.12)}
+.opt.bad{border-color:var(--pink);background:rgba(255,95,162,.14)}
+.opt.good{border-color:var(--teal);background:rgba(62,230,196,.14)}
+.fb{font-size:clamp(.7rem,1.4vw,.85rem);color:var(--mute);min-height:2.6em;margin-top:4px}
+.demo ul{list-style:none;margin-top:22px}
+.demo li{padding:12px 0;border-top:1px solid var(--line);color:var(--mute);display:flex;gap:12px}
+.demo li b{color:var(--ink);font-weight:500}
+.demo li span:first-child{color:var(--gold)}
+@media(max-width:860px){.demo{grid-template-columns:1fr}}
+
+/* war stories */
+.wars{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px}
+.war{perspective:1200px;height:300px;cursor:pointer;background:none;border:0;padding:0;font:inherit;color:inherit;text-align:left}
+.war .in{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d}
+.war.flip .in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;padding:26px;border:1px solid var(--line);display:flex;flex-direction:column}
+.front{background:var(--card)}
+.back{background:linear-gradient(160deg,#1c1726,#120f19);transform:rotateY(180deg);border-color:rgba(62,230,196,.35)}
+.face .tag{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
+.front .tag{color:var(--pink)}.back .tag{color:var(--teal)}
+.face h4{font-size:1.25rem;letter-spacing:-.015em;margin:14px 0 10px;line-height:1.2}
+.face p{color:var(--mute);font-size:.93rem}
+.face .hint{margin-top:auto;font-size:.75rem;color:var(--dim)}
+.big{font-size:2.6rem;font-weight:700;letter-spacing:-.03em;margin-top:6px}
+@media(max-width:960px){.wars{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.wars{grid-template-columns:1fr}.war{height:280px}}
+
+/* principle */
+section.principle{text-align:center;padding-top:140px;padding-bottom:140px}
+.principle blockquote{font-size:clamp(2rem,5.5vw,4.4rem);line-height:1.05;letter-spacing:-.03em;max-width:1000px;margin:0 auto}
+.principle cite{display:block;margin-top:26px;color:var(--mute);font-style:normal;font-size:.95rem}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:60px;text-align:left}
+.trio div{border-top:1px solid var(--line);padding-top:18px}
+.trio .x{color:var(--dim);text-decoration:line-through;font-size:.92rem}
+.trio .y{margin-top:6px;font-weight:500}
+@media(max-width:760px){.trio{grid-template-columns:1fr}}
+
+/* shipped */
+.shelf{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px}
+.course{border-radius:18px;padding:24px;background:var(--card);border:1px solid var(--line);position:relative;overflow:hidden;transition:transform .3s,border-color .3s;min-height:190px;display:flex;flex-direction:column}
+.course:hover{transform:translateY(-4px);border-color:var(--violet)}
+.course::after{content:"";position:absolute;width:160px;height:160px;border-radius:50%;right:-60px;top:-60px;background:var(--c,var(--violet));opacity:.14;filter:blur(10px);transition:opacity .3s}
+.course:hover::after{opacity:.3}
+.course .k{font-size:.72rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
+.course h5{font-size:1.15rem;margin:10px 0 8px;letter-spacing:-.01em;line-height:1.2}
+.course p{font-size:.86rem;color:var(--mute)}
+.course .ct{margin-top:auto;padding-top:14px;font-size:.8rem;color:var(--ink)}
+@media(max-width:960px){.shelf{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.shelf{grid-template-columns:1fr}}
+
+/* architecture */
+.arch{margin-top:56px;background:var(--bg2);border:1px solid var(--line);border-radius:22px;padding:30px;overflow:hidden}
+.arch svg{width:100%;height:auto;display:block}
+.arch text{font-family:"Space Grotesk",sans-serif}
+.flow{stroke-dasharray:6 8;animation:dash 1.2s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-28}}
+
+/* marquee */
+.marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;margin-top:80px;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.mq{display:flex;gap:46px;width:max-content;animation:mq 40s linear infinite;font-size:1.3rem;color:var(--mute)}
+.mq span::before{content:"✦";color:var(--pink);margin-right:46px;font-size:.8rem;vertical-align:3px}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* contact */
+section.contact{text-align:center;padding-top:140px;padding-bottom:100px}
+.contact h2{margin:0 auto}
+.contact .ctas{justify-content:center}
+footer{border-top:1px solid var(--line);padding:30px 0;color:var(--dim);font-size:.85rem}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div id="glow"></div>
+<div class="grain"></div>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">
+      <svg class="crown" viewBox="0 0 32 32" fill="none"><path d="M4 24 6 9l6.5 6L16 6l3.5 9L26 9l2 15z" fill="url(#cg)"/><rect x="4" y="25" width="24" height="3" rx="1.5" fill="#f5c451"/><defs><linearGradient id="cg" x1="4" y1="6" x2="28" y2="24"><stop stop-color="#f5c451"/><stop offset=".55" stop-color="#ff5fa2"/><stop offset="1" stop-color="#9b7bff"/></linearGradient></defs></svg>
+      Aroma Tahir
+    </div>
+    <ul>
+      <li><a href="#pipeline">Pipeline</a></li>
+      <li><a href="#checkpoint">Checkpoint</a></li>
+      <li><a href="#war">War stories</a></li>
+      <li><a href="#shipped">Shipped</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+<!-- HERO -->
+<header class="wrap hero">
+  <div class="kicker reveal"><span class="pulse"></span>Content Queen · in production since 2026</div>
+  <h1 class="reveal">I built a factory<br>that turns a <span class="serif">topic</span> into<br><span class="gradtext">a lesson video.</span></h1>
+  <p class="lede reveal">Someone types one line in Slack. My system <b>researches it, writes the script, argues with its own reviewer, paints the art, records the narration, renders, QA-scores and publishes it</b>, with a quiz the learner has to answer before the video continues. It runs end to end in about 50 minutes, for <b>under a dollar</b>.</p>
+  <div class="typer mono reveal"><span id="typed"></span><span class="cur"></span></div>
+  <div class="ctas reveal">
+    <a class="btn primary" href="#pipeline">See how it works ↓</a>
+    <a class="btn" href="#checkpoint">Try the quiz player</a>
+  </div>
+</header>
+
+<!-- STATS -->
+<section class="wrap" style="padding-top:20px">
+  <div class="eyebrow reveal">By the numbers</div>
+  <h2 class="reveal">Five months. One builder. <span class="serif">A real production system.</span></h2>
+  <div class="stats reveal">
+    <div class="stat"><div class="n"><span class="count" data-to="0.68" data-dec="2" data-pre="$">0</span></div><div class="l">to make one video, from topic to published</div></div>
+    <div class="stat"><div class="n"><span class="count" data-to="50">0</span> min</div><div class="l">topic → published, with nobody touching it</div></div>
+    <div class="stat"><div class="n"><span class="count" data-to="282">0</span></div><div class="l">regression tests, each one pinning a bug that once shipped</div></div>
+    <div class="stat"><div class="n"><span class="count" data-to="62">0</span></div><div class="l">lesson scripts written, gated and produced</div></div>
+    <div class="stat"><div class="n"><span class="count" data-to="277">0</span></div><div class="l">commits since May 2026</div></div>
+    <div class="stat"><div class="n"><span class="count" data-to="7">0</span></div><div class="l">automated QA sensors every video has to pass</div></div>
+    <div class="stat"><div class="n"><span class="count" data-to="16">0</span></div><div class="l">custom Claude skills that teach the agent how to do the work</div></div>
+    <div class="stat"><div class="n">$<span class="count" data-to="0">0</span></div><div class="l">render cost: frames are drawn locally, not by paid AI video</div></div>
+  </div>
+</section>
+
+<!-- PIPELINE -->
+<section id="pipeline" class="wrap">
+  <div class="eyebrow reveal">The spine</div>
+  <h2 class="reveal">Seven stages. <span class="serif">Every one of them has a gate.</span></h2>
+  <p class="sub reveal">Click a stage, or watch it run. Nothing moves to the next stage until the previous one has proven its own output, and money is never spent before a check passes.</p>
+
+  <div class="pipe reveal">
+    <div class="track" id="track"><div class="runner" id="runner"></div></div>
+    <div class="detail">
+      <div class="panel" id="panel"></div>
+      <div class="term mono"><div class="bar"><i></i><i></i><i></i></div><div id="log"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKPOINT -->
+<section id="checkpoint" class="wrap">
+  <div class="eyebrow reveal">The feature learners notice</div>
+  <h2 class="reveal">The video <span class="serif">stops</span> and makes you think.</h2>
+  <p class="sub reveal">Every lesson carries a checkpoint question. It is never drawn or spoken in the video. The player pauses, the LMS asks, and you can't skip past it. Press play and try it.</p>
+
+  <div class="demo reveal">
+    <div class="player" id="player">
+      <div class="scene">
+        <svg viewBox="0 0 640 360" aria-hidden="true">
+          <rect width="640" height="360" fill="#f4ead6"/>
+          <rect x="0" y="250" width="640" height="110" fill="#e8d9bd"/>
+          <rect x="70" y="60" width="150" height="110" rx="6" fill="#fff8ea" stroke="#d8c6a4" stroke-width="3"/>
+          <line x1="145" y1="60" x2="145" y2="170" stroke="#d8c6a4" stroke-width="3"/>
+          <line x1="70" y1="115" x2="220" y2="115" stroke="#d8c6a4" stroke-width="3"/>
+          <rect x="300" y="190" width="260" height="14" rx="4" fill="#b98c5a"/>
+          <rect x="315" y="204" width="10" height="70" fill="#a37748"/><rect x="535" y="204" width="10" height="70" fill="#a37748"/>
+          <g id="laptop"><rect x="380" y="128" width="110" height="64" rx="5" fill="#2d2a35"/><rect x="386" y="134" width="98" height="52" rx="2" fill="#3ee6c4" opacity=".85"/><rect x="368" y="190" width="134" height="6" rx="2" fill="#4a4655"/>
+            <rect id="bar1" x="394" y="170" width="12" height="10" fill="#0b0a10" opacity=".5"/><rect id="bar2" x="412" y="160" width="12" height="20" fill="#0b0a10" opacity=".5"/><rect id="bar3" x="430" y="150" width="12" height="30" fill="#0b0a10" opacity=".5"/><rect id="bar4" x="448" y="142" width="12" height="38" fill="#0b0a10" opacity=".5"/></g>
+          <g id="ali">
+            <ellipse cx="260" cy="300" rx="46" ry="8" fill="#000" opacity=".08"/>
+            <rect x="232" y="200" width="56" height="96" rx="20" fill="#1f9e8f"/>
+            <path d="M246 200 260 214 274 200" fill="none" stroke="#167a6e" stroke-width="4"/>
+            <circle cx="260" cy="170" r="30" fill="#c98e63"/>
+            <path d="M230 165q2-30 30-32q30 2 30 30q-12-14-30-12q-18 0-30 14z" fill="#2b1d16"/>
+            <circle cx="250" cy="172" r="3" fill="#2b1d16"/><circle cx="270" cy="172" r="3" fill="#2b1d16"/>
+            <path id="mouth" d="M252 184q8 6 16 0" fill="none" stroke="#2b1d16" stroke-width="2.5" stroke-linecap="round"/>
+            <rect id="arm" x="282" y="210" width="60" height="14" rx="7" fill="#1f9e8f" transform-origin="284 217"/>
+          </g>
+        </svg>
+      </div>
+      <div class="caption" id="cap">Ali has twenty test questions and a deadline.</div>
+      <div class="quiz" id="quiz">
+        <div class="lock mono">🔒 checkpoint · answer to continue</div>
+        <div class="q">Ali tunes his prompt until all 20 test questions pass. What should he worry about?</div>
+        <button class="opt" data-k="a">It now scores 100%, so it's done</button>
+        <button class="opt" data-k="b">He tuned it to those 20 questions, so it may fail on new ones</button>
+        <button class="opt" data-k="c">20 questions is too many to be useful</button>
+        <div class="fb" id="fb"></div>
+      </div>
+      <div class="ctrl">
+        <button class="pp" id="pp" aria-label="Play">▶</button>
+        <div class="prog"><div class="fill" id="fill"></div><div class="cp" title="checkpoint"></div></div>
+        <div class="tm mono" id="tm">0:00</div>
+      </div>
+    </div>
+    <div>
+      <ul>
+        <li><span>01</span><div><b>One protagonist, always Ali.</b> One story followed in depth instead of five shallow examples. The research said this works better, so it became a rule.</div></li>
+        <li><span>02</span><div><b>The question lives in the LMS, not the pixels.</b> It ships as <span class="mono">checkpoint.json</span> with an exact timestamp. The build fails if it's missing or out of date.</div></li>
+        <li><span>03</span><div><b>Wrong answers teach.</b> Each wrong option carries its own explanation of the mistake, then the video resumes.</div></li>
+        <li><span>04</span><div><b>Verified live.</b> A publish script checks the deployed API until the question is really served.</div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WAR STORIES -->
+<section id="war" class="wrap">
+  <div class="eyebrow reveal">War stories</div>
+  <h2 class="reveal">The hardest bugs <span class="serif">reported success.</span></h2>
+  <p class="sub reveal">The worst failures in an AI pipeline don't crash. They say "done" without doing the work. These are the ones I hunted down. Tap a card to see the fix.</p>
+
+  <div class="wars">
+    <button class="war reveal"><div class="in">
+      <div class="face front"><div class="tag">Silent failure</div><h4>The video that was a third blank</h4><p>4 of 12 scenes rendered as empty cream frames. Duration was right, audio was right, no error was thrown. Every check passed.</p><div class="hint">tap to flip ↻</div></div>
+      <div class="face back"><div class="tag">Fix</div><h4>Look at the frames, not the exit code</h4><p>A frame sensor samples every beat and fails the build on a blank or wordless one. Completeness is checked per item, never in aggregate.</p><div class="hint">↻</div></div>
+    </div></button>
+
+    <button class="war reveal"><div class="in">
+      <div class="face front"><div class="tag">Infinite loop</div><h4>A reviewer that never said yes</h4><p>The AI script gate returned READY</p><div class="big gradtext">0 / 43</div><p>times. It kept saying "the spine is sound" and then refusing anyway.</p><div class="hint">tap to flip ↻</div></div>
+      <div class="face back"><div class="tag">Fix</div><h4>Give the bar a reachable definition</h4><p>Every note is tagged <span class="mono">blocker</span> or <span class="mono">minor</span>. READY means no blockers. It passed on the next run, one redraft in. A reviewer that never passes is as broken as one that never fails.</p><div class="hint">↻</div></div>
+    </div></button>
+
+    <button class="war reveal"><div class="in">
+      <div class="face front"><div class="tag">Money bug</div><h4>The bot that talked to itself</h4><p>The Slack bot's reply quoted the request back. On the next poll it read its own reply as a brand-new request, which meant an unbounded loop of paid renders.</p><div class="hint">tap to flip ↻</div></div>
+      <div class="face back"><div class="tag">Fix</div><h4>Self-detection, checked three ways</h4><p>Slack labels humans and bots differently, so the bot now matches on both. On top of that: a dedupe key on every ticket, and a hard spend ceiling where silence is never consent.</p><div class="hint">↻</div></div>
+    </div></button>
+
+    <button class="war reveal"><div class="in">
+      <div class="face front"><div class="tag">Churn</div><h4>Fixing 5 things, breaking 7</h4><p>Asking the model to "leave the other beats identical" didn't work. Each redraft fixed some scenes and quietly broke ones nobody had complained about. The scores went 17 → 18 → 15 → 13 → 15.</p><div class="hint">tap to flip ↻</div></div>
+      <div class="face back"><div class="tag">Fix</div><h4>Patches, merged in code</h4><p>Redrafts now return a patch of edits, new beats and removals, and code merges it. A beat nobody mentioned <i>can't</i> change, because nothing rewrites it.</p><div class="hint">↻</div></div>
+    </div></button>
+
+    <button class="war reveal"><div class="in">
+      <div class="face front"><div class="tag">Hidden limit</div><h4>The model that wouldn't draw a classroom</h4><p>Any art prompt that mentioned a child came back with zero image bytes, the same way on every retry and with no error. That's a serious gap for an education company.</p><div class="hint">tap to flip ↻</div></div>
+      <div class="face back"><div class="tag">Fix</div><h4>Block it at authoring, not at spend</h4><p>The validator rejects those prompts before any money is spent, and the writer is told to show the student's <i>work</i> instead: the notebook, the worksheet, the empty chair.</p><div class="hint">↻</div></div>
+    </div></button>
+
+    <button class="war reveal"><div class="in">
+      <div class="face front"><div class="tag">Sync drift</div><h4>The voice that lagged the picture</h4><p>A "fast render" mode drew the lesson at 24fps and wrapped it in 30fps brand bumpers. The narration slowly fell out of step with the visuals.</p><div class="hint">tap to flip ↻</div></div>
+      <div class="face back"><div class="tag">Fix</div><h4>Remove the option entirely</h4><p>The fast-render path was deleted, not documented. The verifier now refuses any bare render that isn't exactly 30fps.</p><div class="hint">↻</div></div>
+    </div></button>
+  </div>
+</section>
+
+<!-- PRINCIPLE -->
+<section class="wrap principle">
+  <div class="eyebrow reveal">The one rule underneath all of it</div>
+  <blockquote class="reveal">Encode correctness in <span class="gradtext">structure.</span><br><span class="serif" style="font-style:italic">Never just request it.</span></blockquote>
+  <cite class="reveal">Every "please be careful" version of a fix measurably failed. Every structural one held.</cite>
+  <div class="trio">
+    <div class="reveal"><div class="x">"Please don't leave scenes blank."</div><div class="y">→ A validator that rejects the shape.</div></div>
+    <div class="reveal"><div class="x">"Please don't overspend."</div><div class="y">→ A gate that runs before the money.</div></div>
+    <div class="reveal"><div class="x">"Please don't touch the other beats."</div><div class="y">→ A patch that's merged in code.</div></div>
+  </div>
+</section>
+
+<!-- SHIPPED -->
+<section id="shipped" class="wrap">
+  <div class="eyebrow reveal">Shipped</div>
+  <h2 class="reveal">Courses built for <span class="serif">real learners.</span></h2>
+  <p class="sub reveal">Narrated lessons, assessment guides and assignments for an Agentic AI curriculum, plus a people-skills track. Every video is wrapped in brand bumpers and saved to Drive with its checksum verified.</p>
+  <div class="shelf">
+    <div class="course reveal" style="--c:var(--gold)"><div class="k">Module</div><h5>Evals</h5><p>How to know your AI actually works: test sets, holdouts, and sorting failures into piles.</p><div class="ct mono">lessons + assessment</div></div>
+    <div class="course reveal" style="--c:var(--pink)"><div class="k">Series</div><h5>The Harness</h5><p>6 videos on the room an AI agent works inside, built around one running analogy.</p><div class="ct mono">6 videos + assessment</div></div>
+    <div class="course reveal" style="--c:var(--teal)"><div class="k">Series</div><h5>Self-Healing Systems</h5><p>Agents that catch and repair their own mistakes, continuing the same room and the same Ali.</p><div class="ct mono">6 videos + assignment</div></div>
+    <div class="course reveal" style="--c:var(--violet)"><div class="k">Module 11</div><h5>Autonomy</h5><p>Not all-or-nothing: the rule that lets go, the worst case, and moving the dial by evidence.</p><div class="ct mono">4 videos + assessment</div></div>
+    <div class="course reveal" style="--c:var(--teal)"><div class="k">Module 14</div><h5>Notion + Slack</h5><p>Why a chat window isn't enough, and how to wire a real agent loop into the tools a team already uses.</p><div class="ct mono">7 videos + assignment</div></div>
+    <div class="course reveal" style="--c:var(--gold)"><div class="k">Module</div><h5>Agentic Workflows</h5><p>One lead, many hands: the orchestrator pattern, taught through one task.</p><div class="ct mono">lesson + assessment</div></div>
+    <div class="course reveal" style="--c:var(--pink)"><div class="k">P&amp;C track</div><h5>People Skills</h5><p>A course for peer buddies: your role, listening first, being warm but fair.</p><div class="ct mono">4 weeks shipped</div></div>
+    <div class="course reveal" style="--c:var(--violet)"><div class="k">Fully autonomous</div><h5>Future of Learning</h5><p>Researched, written, reviewed, approved and published by the machine, with no human in the loop.</p><div class="ct mono">QA 6.05 / 7.0</div></div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section class="wrap">
+  <div class="eyebrow reveal">Architecture</div>
+  <h2 class="reveal">From <span class="serif">@mention</span> to learner, with nobody in the middle.</h2>
+  <div class="arch reveal">
+    <svg viewBox="0 0 1100 340" role="img" aria-label="Request flows from Slack to a Notion ticket, through the orchestrator on Railway, into the LMS API, then to Drive and YouTube">
+      <defs>
+        <linearGradient id="ag" x1="0" x2="1"><stop stop-color="#f5c451"/><stop offset=".5" stop-color="#ff5fa2"/><stop offset="1" stop-color="#9b7bff"/></linearGradient>
+      </defs>
+      <g fill="none" stroke="url(#ag)" stroke-width="2">
+        <path class="flow" d="M170 110H250"/><path class="flow" d="M410 110H490"/><path class="flow" d="M790 110H870"/>
+        <path class="flow" d="M640 170V230"/><path class="flow" d="M950 170V230"/>
+      </g>
+      <g font-size="15" fill="#f3eff8">
+        <rect x="20" y="60" width="150" height="100" rx="16" fill="#17141f" stroke="#2a2536"/><text x="95" y="102" text-anchor="middle" font-weight="700">Slack</text><text x="95" y="126" text-anchor="middle" fill="#a59fb4" font-size="12">@content_queen</text>
+        <rect x="250" y="60" width="160" height="100" rx="16" fill="#17141f" stroke="#2a2536"/><text x="330" y="102" text-anchor="middle" font-weight="700">Notion ticket</text><text x="330" y="126" text-anchor="middle" fill="#a59fb4" font-size="12">the unit of work</text>
+        <rect x="490" y="50" width="300" height="120" rx="18" fill="#1c1726" stroke="#f5c451"/><text x="640" y="92" text-anchor="middle" font-weight="700" font-size="17">Orchestrator spine</text><text x="640" y="116" text-anchor="middle" fill="#a59fb4" font-size="12">research · script · gate · produce · qa</text><text x="640" y="138" text-anchor="middle" fill="#3ee6c4" font-size="12">Railway · 120s polling tick</text>
+        <rect x="870" y="60" width="160" height="100" rx="16" fill="#17141f" stroke="#2a2536"/><text x="950" y="102" text-anchor="middle" font-weight="700">LMS API</text><text x="950" y="126" text-anchor="middle" fill="#a59fb4" font-size="12">multi-tenant, budgeted</text>
+        <rect x="520" y="230" width="240" height="80" rx="16" fill="#17141f" stroke="#2a2536"/><text x="640" y="264" text-anchor="middle" font-weight="700">Gemini · Imagen · ffmpeg</text><text x="640" y="288" text-anchor="middle" fill="#a59fb4" font-size="12">art, voice and render, local frames</text>
+        <rect x="850" y="230" width="200" height="80" rx="16" fill="#17141f" stroke="#2a2536"/><text x="950" y="264" text-anchor="middle" font-weight="700">Drive + YouTube</text><text x="950" y="288" text-anchor="middle" fill="#a59fb4" font-size="12">md5-verified storage</text>
+      </g>
+      <g font-size="12" fill="#6f6880" font-family="JetBrains Mono,monospace">
+        <text x="20" y="200">spend over the ceiling?</text><text x="20" y="218">→ it stops and asks in Slack.</text><text x="20" y="236" fill="#ff5fa2">silence is never consent.</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="marquee"><div class="mq" id="mq"></div></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="wrap contact">
+  <div class="eyebrow reveal">Let's build something</div>
+  <h2 class="reveal">I make AI systems that <span class="gradtext">actually ship</span>,<br><span class="serif">and then I keep them honest.</span></h2>
+  <p class="sub reveal" style="margin:18px auto 0">Product thinking, prompt and agent design, pipeline engineering, and a QA mindset that assumes "done" is lying until it's proven otherwise.</p>
+  <div class="ctas reveal">
+    <a class="btn primary" href="https://github.com/aroma72">GitHub ↗</a>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Aroma Tahir</span><span class="mono">built with the same care as the pipeline ✦</span></div></footer>
+
+<script>
+(()=>{
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* cursor glow */
+addEventListener('pointermove',e=>{document.body.style.setProperty('--mx',e.clientX+'px');document.body.style.setProperty('--my',e.clientY+'px')},{passive:true});
+
+/* stars */
+const cv=document.getElementById('stars'),cx=cv.getContext('2d');let S=[];
+function size(){cv.width=innerWidth*devicePixelRatio;cv.height=innerHeight*devicePixelRatio;S=Array.from({length:Math.min(140,innerWidth/8)},()=>({x:Math.random()*cv.width,y:Math.random()*cv.height,r:Math.random()*1.3*devicePixelRatio+.2,v:Math.random()*.25+.05,t:Math.random()*6}))}
+size();addEventListener('resize',size);
+(function draw(){cx.clearRect(0,0,cv.width,cv.height);for(const s of S){s.t+=.02;if(!reduce){s.y-=s.v;if(s.y<0)s.y=cv.height}cx.globalAlpha=.25+.35*Math.sin(s.t);cx.fillStyle='#fff';cx.beginPath();cx.arc(s.x,s.y,s.r,0,7);cx.fill()}requestAnimationFrame(draw)})();
+
+/* reveal + counters */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.querySelectorAll('.count').forEach(count);io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*70+'ms';io.observe(el)});
+function count(el){if(el.dataset.done)return;el.dataset.done=1;const to=+el.dataset.to,dec=+(el.dataset.dec||0),pre=el.dataset.pre||'';const t0=performance.now(),D=reduce?1:1600;
+  (function f(t){const p=Math.min(1,(t-t0)/D),v=to*(1-Math.pow(1-p,3));el.textContent=pre+v.toFixed(dec);if(p<1)requestAnimationFrame(f)})(t0)}
+
+/* typer */
+const lines=['$ @content_queen make a lesson on evals for beginners','→ research … script … gate … produce … qa … publish','✓ 18 beats · QA 6.05/7.0 · $0.68 · 50 min','$ npm test','✓ 282 tests · every one a bug that once shipped'];
+const ty=document.getElementById('typed');let li=0,ci=0,del=false;
+(function tick(){const s=lines[li];if(!del){ty.textContent=s.slice(0,++ci);if(ci===s.length){del=true;return setTimeout(tick,1700)}}else{ty.textContent=s.slice(0,--ci);if(ci===0){del=false;li=(li+1)%lines.length}}setTimeout(tick,del?14:38)})();
+
+/* pipeline */
+const ST=[
+ {i:'🔎',n:'Research',t:'web + sources',h:'Research the topic first',p:'Before a single word is written, the agent researches the topic and the best ways to teach it. Facts get grounded and the on-screen numbers are real.',c:['claude','web research','SLO-aligned'],log:['research: "evals for beginners"','  ↳ 9 sources · 3 teaching techniques','✓ brief written']},
+ {i:'✍️',n:'Script',t:'one sentence = one beat',h:'Write in beats',p:'One spoken sentence per beat, each with its own visual. One protagonist, Ali, followed in depth through a single story. 16 to 22 beats, about 6.2 seconds each.',c:['beats.js','schema-validated','Ali canon'],log:['script: drafting 18 beats','  ↳ validate-beats: shape ok, no children in art','✓ beats.js valid']},
+ {i:'⚖️',n:'Gate',t:'adversarial reviewer',h:'An AI that argues back',p:'A separate reviewer agent grades the script against the house standard. Its notes are tagged blocker or minor. Redrafts come back as patches, so fixed scenes stay fixed.',c:['blocker/minor','patch merge','max 8 rounds'],log:['gate: round 1 → NEEDS WORK (2 blockers)','  ↳ applyEdits: 2 beats patched, 16 untouched','✓ gate: READY (minors logged)']},
+ {i:'🎨',n:'Produce',t:'art · voice · render',h:'Make it, cheaply',p:'Imagen paints flat illustrations, Python cuts out the characters, Gemini narrates in one take, and Puppeteer plus ffmpeg render every frame locally. Spending is priced first and refused without a budget.',c:['Imagen','Gemini TTS','Puppeteer','ffmpeg'],log:['produce: quote $0.68 ≤ budget $2.00','  ↳ art 18/18 · tts 1 take · 30fps','✓ lesson_final.mp4 (bumpers on)']},
+ {i:'🧪',n:'QA',t:'7 sensors + rubric',h:'Prove it, frame by frame',p:'Sensors check blank frames, sliced cutouts, frozen clips, A/V sync, grammar and the checkpoint quiz. Then a 7-factor rubric scores it, and anything under 4.9/7 gets remade.',c:['qa-frames','qa-cutouts','qa-checkpoint','4.9/7 bar'],log:['qa: frames ✓ cutouts ✓ clips ✓ sync ✓','  ↳ rubric 6.05 / 7.0','✓ PASS']},
+ {i:'☁️',n:'Store',t:'Drive · md5',h:'Save it, then prove it saved',p:'The finished video goes to Drive. The md5 is checked against the local file before anything is deleted, and the source files that checkpoints are rebuilt from are never deleted.',c:['md5 verified','idempotent','disk reclaimed'],log:['offload: upload → md5 match','  ↳ recorded · local mp4 freed','✓ saved2drive']},
+ {i:'🚀',n:'Publish',t:'LMS · YouTube',h:'Ship it to learners',p:'The LMS API serves the video and its checkpoint question at the exact second to pause. YouTube uploads start unlisted until a human clears them.',c:['multi-tenant API','checkpoint.json','unlisted first'],log:['publish: checkpoint live @ 47.3s','  ↳ youtube: unlisted, pending review','✓ DONE · 50 min · $0.68']}
+];
+const track=document.getElementById('track'),runner=document.getElementById('runner'),panel=document.getElementById('panel'),log=document.getElementById('log');
+ST.forEach((s,k)=>{const b=document.createElement('button');b.className='node';b.innerHTML=`<div class="dot">${s.i}</div><div class="nm">${s.n}</div><div class="tg">${s.t}</div>`;b.onclick=()=>{auto=false;go(k)};track.appendChild(b)});
+const nodes=[...track.querySelectorAll('.node')];let cur=-1,auto=true;
+function go(k){cur=k;nodes.forEach((n,j)=>{n.classList.toggle('on',j===k);n.classList.toggle('done',j<k)});
+  runner.style.left=`calc(4% + ${(k/(ST.length-1))}*92% - 6px)`;
+  const s=ST[k];panel.innerHTML=`<div class="mono" style="color:var(--gold);font-size:.75rem">STAGE ${k+1} / 7</div><h3 style="margin-top:8px">${s.h}</h3><p>${s.p}</p>${s.c.map(c=>`<span class="chip mono">${c}</span>`).join('')}`;
+  s.log.forEach((l,j)=>setTimeout(()=>{if(cur!==k)return;const d=document.createElement('div');d.className=l.startsWith('✓')?'ok':l.startsWith('  ')?'d':'';d.textContent=l;log.appendChild(d);while(log.children.length>11)log.firstChild.remove()},j*420))}
+go(0);setInterval(()=>{if(auto)go((cur+1)%ST.length)},3600);
+
+/* checkpoint player */
+const caps=[[0,'Ali has twenty test questions and a deadline.'],[18,'He tweaks the prompt. 14 pass. Then 17.'],[36,'By Friday, all twenty pass. A perfect score.'],[58,null],[60,'So Ali locks five questions away and never tunes on them.'],[80,'On the locked five, the real score is 3 out of 5. Now he knows the truth.']];
+const fill=document.getElementById('fill'),pp=document.getElementById('pp'),quiz=document.getElementById('quiz'),cap=document.getElementById('cap'),tm=document.getElementById('tm'),fb=document.getElementById('fb'),arm=document.getElementById('arm'),mouth=document.getElementById('mouth');
+const bars=[1,2,3,4].map(i=>document.getElementById('bar'+i));
+let pos=0,playing=false,answered=false,last=performance.now();const DUR=100,SPEED=4.2;
+pp.onclick=()=>{if(quiz.classList.contains('show'))return;if(pos>=DUR){pos=0;answered=false}playing=!playing;pp.textContent=playing?'❚❚':'▶';last=performance.now()};
+function frame(t){const dt=(t-last)/1000;last=t;
+  if(playing){pos=Math.min(DUR,pos+dt*SPEED);
+    if(!answered&&pos>=58){pos=58;playing=false;pp.textContent='▶';quiz.classList.add('show')}
+    if(pos>=DUR){playing=false;pp.textContent='↺'}}
+  fill.style.width=pos+'%';const sec=Math.round(pos*.92);tm.textContent=`0:${String(sec).padStart(2,'0')}`;
+  let c='';for(const[p,s] of caps)if(pos>=p&&s)c=s;if(cap.textContent!==c)cap.textContent=c;
+  const w=playing?Math.sin(t/180)*14:0;arm.setAttribute('transform',`rotate(${-10+w} 284 217)`);
+  mouth.setAttribute('d',playing&&Math.sin(t/90)>0?'M252 184q8 9 16 0':'M252 184q8 6 16 0');
+  const h=[10,20,30,38].map((b,i)=>b*Math.min(1,pos/36+.2)*(pos>=80&&i===3?.55:1));
+  bars.forEach((b,i)=>{b.setAttribute('height',h[i]);b.setAttribute('y',180-h[i])});
+  requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+const FB={a:'Not quite. A perfect score on the questions you tuned against tells you he memorised the test, not that it works.',b:'Exactly. He overfit. The fix is a locked holdout set he never tunes on. Resuming…',c:"Not the issue. 20 is small if anything. The problem is that he tuned against the same questions he's grading with."};
+quiz.querySelectorAll('.opt').forEach(o=>o.onclick=()=>{const k=o.dataset.k;fb.textContent=FB[k];o.classList.add(k==='b'?'good':'bad');
+  if(k==='b'){answered=true;setTimeout(()=>{quiz.classList.remove('show');quiz.querySelectorAll('.opt').forEach(x=>x.className='opt');fb.textContent='';playing=true;pp.textContent='❚❚';last=performance.now()},1700)}});
+
+/* flip cards */
+document.querySelectorAll('.war').forEach(w=>w.onclick=()=>w.classList.toggle('flip'));
+
+/* marquee */
+const tech=['Claude','Claude Code skills','Gemini TTS','Imagen 4','Python cutout','Puppeteer','ffmpeg','Node.js','Railway','Slack API','Notion API','Google Drive API','YouTube Data API','LLM-as-judge','GitHub Actions'];
+document.getElementById('mq').innerHTML=[...tech,...tech].map(t=>`<span>${t}</span>`).join('');
+})();
+</script>
+</body>
+</html>
